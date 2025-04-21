@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportQaz - Спорт киімдері интернет-дүкені</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            overflow-x: hidden;
+            color: var(--dark-color);
+        }
+        
+        /* Навигация */
+        .navbar {
+            background-color: rgba(44, 62, 80, 0.9);
+            transition: all 0.3s ease;
+            padding: 15px 0;
+        }
+        
+        .navbar.scrolled {
+            background-color: var(--primary-color);
+            padding: 10px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            color: white;
+            margin: 0 10px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--secondary-color);
+        }
+        
+        /* Секции */
+        section {
+            min-height: 100vh;
+            padding: 80px 0;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--secondary-color);
+        }
+        
+        /* Герой секция */
+        #hero {
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.9), rgba(52, 152, 219, 0.8)), url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-outline-light {
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .btn-outline-light:hover {
+            background-color: white;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* О компании */
+        #about {
+            background-color: white;
+        }
+        
+        .about-img {
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s;
+        }
+        
+        .about-img:hover {
+            transform: scale(1.03);
+        }
+        
+        /* Продукция */
+        #products {
+            background-color: var(--light-color);
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            margin-bottom: 30px;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        .product-body {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .product-price {
+            color: var(--accent-color);
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Контакты */
+        #contact {
+            background-color: white;
+        }
+        
+        .contact-info {
+            margin-bottom: 30px;
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .form-control {
+            height: 50px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+        
+        textarea.form-control {
+            height: auto;
+        }
+        
+        /* Футер */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links h5 {
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Анимации */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 1s ease forwards;
+        }
+        
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target=".navbar">
+    <!-- Навигация -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">SportQaz</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#hero">Басты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Біз туралы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#products">Өнімдер</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#advantages">Артықшылықтар</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Байланыс</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Герой секция -->
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content fade-in-up">
+                <h1 class="hero-title">Спорт киімдерінің сапалы таңдауы</h1>
+                <p class="hero-subtitle">Біз сізге ең жақсы сапалы спорт киімдерін ұсынамыз. Жаттығуларыңызды ыңғайлы және стильді өткізіңіз!</p>
+                <div>
+                    <a href="#products" class="btn btn-primary me-2">Тауарларды қарау</a>
+                    <a href="#contact" class="btn btn-outline-light">Байланысу</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О компании -->
+    <section id="about">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0 fade-in-up">
+                    <h2 class="section-title">Біз туралы</h2>
+                    <p class="mb-4">SportQaz - бұл Қазақстандағы спорт киімдері мен аяқ киімдерін сататын жетекші интернет-дүкен. Біз 2010 жылдан бері клиенттерімізге сапалы өнімдерді ұсынып келеміз.</p>
+                    <p class="mb-4">Біз тек сертификатталған брендтердің өнімдерін ұсынамыз, олардың сапасына кепілдік береміз. Біздің мақсатымыз - әрбір клиенттің қажеттіліктеріне сай өнімді тауып, олардың спортпен айналысуын ыңғайлы ету.</p>
+                    <div class="d-flex">
+                        <div class="me-4">
+                            <h3>10+</h3>
+                            <p>Жылдық тәжірибе</p>
+                        </div>
+                        <div class="me-4">
+                            <h3>5000+</h3>
+                            <p>Қанаттандырылған клиент</p>
+                        </div>
+                        <div>
+                            <h3>50+</h3>
+                            <p>Әлемдік брендтер</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 fade-in-up delay-1">
+                    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Біз туралы" class="img-fluid about-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Продукция -->
+    <section id="products">
+        <div class="container">
+            <div class="text-center mb-5 fade-in-up">
+                <h2 class="section-title">Біздің өнімдер</h2>
+                <p class="lead">Ең жақсы спорт киімдері мен аяқ киімдерінің таңдауы</p>
+            </div>
+            <div class="row">
+                <div class="col-md-4 fade-in-up">
+                    <div class="product-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTchVZiqOYtD4nYRhRkmk1jPxsyNLoV2sndrA&s" alt="Футболка" class="product-img">
+                        <div class="product-body">
+                            <h5 class="product-title">Pro Runner аяқкиім</h5>
+                            <p class="product-price">24 990 ₸</p>
+                            <a href="#" class="btn btn-primary w-100">Сатып алу</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 fade-in-up delay-1">
+                    <div class="product-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbILC7hQOdOWUhQKz5QfFhl2l2lGTr6lIEWnmZB4l6OBwFRK1ygCniuuKdAEp1n-yolC8&usqp=CAU" alt="Шорты" class="product-img">
+                        <div class="product-body">
+                            <h5 class="product-title">Тренинг костюмі</h5>
+                            <p class="product-price">18 990 ₸</p>
+                            <a href="#" class="btn btn-primary w-100">Сатып алу</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 fade-in-up delay-2">
+                    <div class="product-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCDeYhw1m1joNX4yIWqsNy3Z_CGl8RNT8Z-A&s" alt="Аяқ киім" class="product-img">
+                        <div class="product-body">
+                            <h5 class="product-title">SportLine бейсболка</h5>
+                            <p class="product-price">5 990 ₸</p>
+                            <a href="#" class="btn btn-primary w-100">Сатып алу</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4 fade-in-up delay-3">
+                <a href="#" class="btn btn-outline-primary">Барлық өнімдерді қарау</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Преимущества -->
+    <section id="advantages">
+        <div class="container">
+            <div class="text-center mb-5 fade-in-up">
+                <h2 class="section-title">Біздің артықшылықтар</h2>
+                <p class="lead">Неге бізді таңдау керек?</p>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-4 fade-in-up">
+                    <div class="text-center p-4 h-100" style="background-color: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <div class="mb-3" style="font-size: 2.5rem; color: var(--secondary-color);">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Сапаға кепілдік</h4>
+                        <p>Біз тек сертификатталған өнімдерді ұсынамыз. Барлық тауарлар сапасына кепілдікпен беріледі.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 fade-in-up delay-1">
+                    <div class="text-center p-4 h-100" style="background-color: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <div class="mb-3" style="font-size: 2.5rem; color: var(--secondary-color);">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h4>Тегін жеткізу</h4>
+                        <p>100 000 ₸ және одан жоғары тапсырыстарға Қазақстан бойынша тегін жеткізу қызметі.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 fade-in-up delay-2">
+                    <div class="text-center p-4 h-100" style="background-color: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <div class="mb-3" style="font-size: 2.5rem; color: var(--secondary-color);">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <h4>Қайтаруға 30 күн</h4>
+                        <p>Сатып алған тауарды 30 күн ішінде кез келген себеппен қайтаруға болады.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 mb-5 mb-lg-0 fade-in-up">
+                    <h2 class="section-title">Байланыс</h2>
+                    <p class="mb-5">Кез келген сұрақтар бойынша бізге хабарласыңыз. Біз сізге көмектесуге дайынбыз!</p>
+                    
+                    <div class="contact-info">
+                        <div class="d-flex mb-4">
+                            <div class="me-4">
+                                <i class="fas fa-map-marker-alt contact-icon"></i>
+                            </div>
+                            <div>
+                                <h5>Мекен-жайы</h5>
+                                <p>Қазақстан, Нұр-Сұлтан, Кенес Еркіндик көшесі 10</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex mb-4">
+                            <div class="me-4">
+                                <i class="fas fa-phone-alt contact-icon"></i>
+                            </div>
+                            <div>
+                                <h5>Телефон</h5>
+                                <p>+7 (7172) 123 456</p>
+                                <p>+7 (701) 123 4567</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex">
+                            <div class="me-4">
+                                <i class="fas fa-envelope contact-icon"></i>
+                            </div>
+                            <div>
+                                <h5>Электронды пошта</h5>
+                                <p>info@sportqaz.kz</p>
+                                <p>sales@sportqaz.kz</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-7 fade-in-up delay-1">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" placeholder="Аты-жөніңіз" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="email" class="form-control" placeholder="Электронды пошта" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Тақырып">
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" rows="5" placeholder="Хабарламаңыз" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Хабарлама жіберу</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="footer-logo">SportQaz</div>
+                    <p>Спорт киімдері мен аяқ киімдерінің сапалы таңдауы. Біз сіздің спорттық өміріңізге ыңғайлылық әкелеміз.</p>
+                    <div class="social-icons mt-4">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h5>Ақпарат</h5>
+                        <ul>
+                            <li><a href="#">Біз туралы</a></li>
+                            <li><a href="#">Жеткізу</a></li>
+                            <li><a href="#">Төлем</a></li>
+                            <li><a href="#">Қайтару</a></li>
+                            <li><a href="#">Конфиденциальность</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h5>Каталог</h5>
+                        <ul>
+                            <li><a href="#">Футболкалар</a></li>
+                            <li><a href="#">Шалбарлар</a></li>
+                            <li><a href="#">Аяқ киім</a></li>
+                            <li><a href="#">Аксессуарлар</a></li>
+                            <li><a href="#">Жаңа өнімдер</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="footer-links">
+                        <h5>Жаңалықтарға жазылу</h5>
+                        <p>Жаңа өнімдер мен жеңілдіктер туралы бірінші болып біліңіз.</p>
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Электронды пошта">
+                            <button class="btn btn-primary" type="button">Жазылу</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center copyright">
+                <p>&copy; 2023 SportQaz. Барлық құқықтар қорғалған.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Навигация при скролле
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Анимация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.fade-in-up');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
